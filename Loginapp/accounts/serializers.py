@@ -28,7 +28,15 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-        user = authenticate(username=data['username'], password=data['password'])
+        username = data.get('username')
+        password = data.get('password')
+        from django.contrib.auth import get_user_model
+        User = get_user_model()
+        try:
+            user_obj = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({"username": "You are not register so sign in now"})
+        user = authenticate(username=username, password=password)
         if user and user.is_active:
             return user
-        raise serializers.ValidationError("Invalid credentials")
+        raise serializers.ValidationError({"password": "password is wrong"})

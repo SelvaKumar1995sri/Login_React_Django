@@ -138,7 +138,11 @@ const LandingPage = () => {
 							) : (
 								<>
 									<p>{slide.content}</p>
-									{slide.button && <button>{slide.button}</button>}
+									{slide.button && (
+										<button onClick={() => {
+											if (slide.title === 'Your Bike, Our Care – Anytime, Anywhere') setPage('login');
+										}}>{slide.button}</button>
+									)}
 								</>
 							)}
 						</div>
@@ -208,12 +212,12 @@ const LandingPage = () => {
 							Sign Up
 						</button>
 					</div>
-					{page === 'login' && (
-						<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Login /></div>
-					)}
-					{page === 'signin' && (
-						<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Register /></div>
-					)}
+							{page === 'login' && (
+								<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Login setPage={setPage} /></div>
+							)}
+							{page === 'signin' && (
+								<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Register /></div>
+							)}
 					{page === 'landing' && renderSlides()}
 				</div>
 			);
