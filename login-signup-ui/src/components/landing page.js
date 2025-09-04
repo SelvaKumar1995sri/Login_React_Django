@@ -89,138 +89,151 @@ const LandingPage = () => {
 			}
 		}, [section, page]);
 
+
 	const renderSlides = () => (
-		<div
-			style={{
-				height: '100vh',
-				width: '100vw',
-				overflow: 'hidden',
-				position: 'relative',
-			}}
-		>
+		<div>
 			<div
 				style={{
-					height: `${slideData.length * 100}vh`,
+					height: '100vh',
 					width: '100vw',
-					transition: 'transform 0.7s cubic-bezier(.77,0,.18,1)',
-					transform: `translateY(-${section * 100}vh)`,
+					overflow: 'hidden',
+					position: 'relative',
 				}}
 			>
-				{slideData.map((slide, idx) => (
-					<div key={idx} style={{ ...slideStyle, position: 'relative', overflow: 'hidden' }}>
-						{/* Background image for this slide */}
-						{slide.background && (
-							<div style={{
-								position: 'absolute',
-								top: 0, left: 0, width: '100%', height: '100%',
-								backgroundImage: `url(${slide.background})`,
-								backgroundSize: 'cover',
-								backgroundPosition: 'center',
-								backgroundRepeat: 'no-repeat',
-								zIndex: 0,
-							}} />
-						)}
-						{/* Content */}
-						<div style={{ position: 'relative', zIndex: 1, 
-							backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', 
-							borderRadius: '10px', justifyContent: 'center', textAlign: 'center' }}>
-							<h1>{slide.title}</h1>
-							{Array.isArray(slide.content) ? (
-								slide.title.includes('How It Works') ? (
-									<ol style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', fontSize: '1.2em' }}>
-										{slide.content.map((item, i) => <li key={i}>{item}</li>)}
-									</ol>
-								) : (
-									<ul style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', fontSize: '1.2em' }}>
-										{slide.content.map((item, i) => <li key={i}>{item}</li>)}
-									</ul>
-								)
-							) : (
-								<>
-									<p>{slide.content}</p>
-									{slide.button && (
-										<button onClick={() => {
-											if (slide.title === 'Your Bike, Our Care – Anytime, Anywhere') setPage('login');
-										}}>{slide.button}</button>
-									)}
-								</>
+				<div
+					style={{
+						height: `${slideData.length * 100}vh`,
+						width: '100vw',
+						transition: 'transform 0.7s cubic-bezier(.77,0,.18,1)',
+						transform: `translateY(-${section * 100}vh)`
+					}}
+				>
+					{slideData.map((slide, idx) => (
+						<div key={idx} style={{ ...slideStyle, position: 'relative', overflow: 'hidden' }}>
+							{/* Background image for this slide */}
+							{slide.background && (
+								<div style={{
+									position: 'absolute',
+									top: 0, left: 0, width: '100%', height: '100%',
+									backgroundImage: `url(${slide.background})`,
+									backgroundSize: 'cover',
+									backgroundPosition: 'center',
+									backgroundRepeat: 'no-repeat',
+									zIndex: 0,
+								}} />
 							)}
+							{/* Content */}
+							<div style={{ position: 'relative', zIndex: 1, 
+								backgroundColor: 'rgba(255, 255, 255, 0.8)', padding: '20px', 
+								borderRadius: '10px', justifyContent: 'center', textAlign: 'center' }}>
+								<h1>{slide.title}</h1>
+								{Array.isArray(slide.content) ? (
+									slide.title.includes('How It Works') ? (
+										<ol style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', fontSize: '1.2em' }}>
+											{slide.content.map((item, i) => <li key={i}>{item}</li>)}
+										</ol>
+									) : (
+										<ul style={{ textAlign: 'left', display: 'inline-block', margin: '0 auto', fontSize: '1.2em' }}>
+											{slide.content.map((item, i) => <li key={i}>{item}</li>)}
+										</ul>
+									)
+								) : (
+									<>
+										<p>{slide.content}</p>
+											{slide.button && (
+												<button onClick={() => {
+													if (slide.title === 'Your Bike, Our Care – Anytime, Anywhere') setPage('login');
+												}}>{slide.button}</button>
+											)}
+									</>
+								)}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
+				</div>
 			</div>
 		</div>
 	);
 
-			return (
-				<div style={{ overflow: 'hidden', height: '100vh', width: '100vw', position: 'relative' }}>
-					{/* Login/SignIn background image */}
+	return (
+		<div style={{ overflow: 'hidden', height: '100vh', width: '100vw', position: 'relative' }}>
+			{/* Login/SignIn background image */}
+			{(page === 'login' || page === 'signin') && (
+				<div style={{
+					position: 'absolute',
+					top: 0, left: 0, width: '100vw', height: '100vh',
+					backgroundImage: `url(${page === 'login' ? RE : nature})`,
+					backgroundSize: 'cover',
+					backgroundPosition: 'center',
+					backgroundRepeat: 'no-repeat',
+					zIndex: 0,
+				}} />
+			)}
+			{/* Top bar only for non-main pages */}
+			{page !== 'main' && (
+				<div style={{
+					display: 'flex',
+					justifyContent: 'flex-end',
+					alignItems: 'center',
+					padding: '20px',
+					position: 'fixed',
+					top: 10,
+					left: '50%',
+					transform: 'translateX(-50%)',
+					width: '90vw',
+					borderRadius: '5px',
+					zIndex: 10,
+				}}>
 					{(page === 'login' || page === 'signin') && (
-						<div style={{
-							position: 'absolute',
-							top: 0, left: 0, width: '100vw', height: '100vh',
-							backgroundImage: `url(${page === 'login' ? RE : nature})`,
-							backgroundSize: 'cover',
-							backgroundPosition: 'center',
-							backgroundRepeat: 'no-repeat',
-							zIndex: 0,
-						}} />
+						<button
+							style={{
+								marginRight: 'auto',
+								cursor: 'pointer',
+								fontSize: '1.2rem',
+								padding: '10px 32px',
+								borderRadius: '6px',
+								fontWeight: 'bold',
+								border: 'none',
+								padding: '10px 32px',
+								marginLeft: '10px',
+							}}
+							onClick={() => setPage('landing')}
+						>
+							Home
+						</button>
 					)}
-					<div style={{
-						display: 'flex',
-						justifyContent: 'flex-end',
-						alignItems: 'center',
-						padding: '20px',
-						position: 'fixed',
-						top: 10,
-						left: '50%',
-						transform: 'translateX(-50%)',
-						width: '90vw',
-						borderRadius: '5px',
-						zIndex: 10,
-					}}>
-						{(page === 'login' || page === 'signin') && (
-							<button
-								style={{
-									marginRight: 'auto',
-									cursor: 'pointer',
-									fontSize: '1.2rem', 
-									padding: '10px 32px',
-									borderRadius: '6px',
-									fontWeight: 'bold',
-									border: 'none',
-									padding: '10px 32px',
-									marginLeft: '10px',
-								}}
-								onClick={() => setPage('landing')}
-							>
-								Home
-							</button>
-						)}
-						<button
-							className="image-text-button"
-							style={{ marginRight: '10px', fontSize: '1.2rem', padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', border: 'none' }}
-							onClick={() => setPage('login')}
-						>
-							Login
-						</button>
-						<button
-							className="image-text-button"
-							style={{ fontSize: '1.2rem', padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', border: 'none' }}
-							onClick={() => setPage('signin')}
-						>
-							Sign Up
-						</button>
-					</div>
-							{page === 'login' && (
-								<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Login setPage={setPage} /></div>
-							)}
-							{page === 'signin' && (
-								<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Register /></div>
-							)}
-					{page === 'landing' && renderSlides()}
+					<button
+						className="image-text-button"
+						style={{ marginRight: '10px', fontSize: '1.2rem', padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', border: 'none' }}
+						onClick={() => setPage('login')}
+					>
+						Login
+					</button>
+					<button
+						className="image-text-button"
+						style={{ fontSize: '1.2rem', padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', border: 'none' }}
+						onClick={() => setPage('signin')}
+					>
+						Sign Up
+					</button>
 				</div>
-			);
+			)}
+			{page === 'login' && (
+				<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Login setPage={setPage} /></div>
+			)}
+			{page === 'signin' && (
+				<div style={{ marginTop: '150px', position: 'relative', zIndex: 1 }}><Register /></div>
+			)}
+			{page === 'main' && (
+				<div style={{ minHeight: '100vh' }}>
+					{React.createElement(require('../mainpage/mainpage.js').default, {
+						onLogout: () => setPage('login')
+					})}
+				</div>
+			)}
+			{page === 'landing' && renderSlides()}
+		</div>
+	);
 };
 
 

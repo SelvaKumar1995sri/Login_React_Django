@@ -20,6 +20,10 @@ function Login({ setPage }) {
       msg = data.username;
     } else if (data.password) {
       msg = data.password;
+    } else if (data.id || data.success || (typeof data.message === 'string' && data.message.toLowerCase().includes('login successful'))) {
+      // Successful login: redirect to main page
+      setPage && setPage('main');
+      return;
     } else if (data.message) {
       msg = data.message;
     } else {
@@ -28,6 +32,15 @@ function Login({ setPage }) {
     setMessage(msg);
     setShowModal(true);
   };
+
+  React.useEffect(() => {
+    if (!showModal) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setShowModal(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showModal]);
 
   return (
     <>
@@ -80,7 +93,6 @@ function Login({ setPage }) {
                 );
               }
             })()} */}
-            {typeof message === "string" && message.toLowerCase().includes("password is wrong") ? (
               <button onClick={() => setShowModal(false)} style={{
                 padding: '8px 24px',
                 borderRadius: '6px',
@@ -91,22 +103,6 @@ function Login({ setPage }) {
                 color: 'white',
                 cursor: 'pointer'
               }}>OK</button>
-            ) : (
-              <button
-                className="image-text-button"
-                style={{ padding: '8px 24px',
-                borderRadius: '6px',
-                fontWeight: 'bold',
-                fontSize: '1rem',
-                border: 'none',
-                background: '#1976d2',
-                color: 'white',
-                cursor: 'pointer' }}
-                onClick={() => { setShowModal(false); setPage('signin'); }}
-              >
-                Sign Up
-              </button>
-            )}
           </div>
         </div>
       )}
