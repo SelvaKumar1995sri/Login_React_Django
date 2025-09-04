@@ -18,12 +18,24 @@ function Register() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>Register</h2>
-      <input name="username" placeholder="Username" onChange={handleChange} required />
-      <input name="email" type="email" placeholder="Email" onChange={handleChange} required />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-      <button type="submit">Sign Up</button>
+    <form onSubmit={handleSubmit}
+    style={{
+      maxWidth: '400px',
+      margin: 'auto',
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <h2 style={{ margin: 0, fontSize: '3rem' }}>Register</h2>
+      <input style={{ width: '90%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} name="username" placeholder="Username" onChange={handleChange} required />
+      <input style={{ width: '90%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} name="email" type="email" placeholder="Email" onChange={handleChange} required />
+      <input style={{ width: '90%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} name="password" type="password" placeholder="Password" onChange={handleChange} required />
+      <button type="submit" style={{ padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>Sign Up</button>
       <div>{message}</div>
     </form>
   );

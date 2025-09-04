@@ -19,11 +19,24 @@ function Login() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Login</h2>
-      <input name="username" placeholder="Username" onChange={handleChange} required />
-      <input name="password" type="password" placeholder="Password" onChange={handleChange} required />
-      <button type="submit">Login</button>
+      <div class='login-form' style={{
+      maxWidth: '400px',
+      margin: 'auto',
+      backgroundColor: 'white',
+      borderRadius: '5px',
+      padding: '20px',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '10px',
+      justifyContent: 'center',
+      alignItems: 'center',
+    }}>
+      <h2 style={{ margin: 0, fontSize: '3rem' }}>Login</h2>
+      <input style={{ width: '90%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} name="username" placeholder="Username" onChange={handleChange} required />
+      <input style={{ width: '90%', padding: '10px', borderRadius: '5px', border: '1px solid #ccc' }} name="password" type="password" placeholder="Password" onChange={handleChange} required />
+      <button type="submit" style={{ padding: '10px 32px', borderRadius: '6px', fontWeight: 'bold', fontSize: '1rem', border: 'none' }}>Login</button>
       <div>{message}</div>
+      </div>
     </form>
   );
 }

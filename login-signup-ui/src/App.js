@@ -1,12 +1,12 @@
 import './App.css';
 import Register from './components/Register';
-import Login from './components//Login';
+import Login from './components/Login';
+import LandingPage from './components/landing page';
 
 function App() {
   return (
     <div>
-      <Register />
-      <Login />
+      <LandingPage />
     </div>
   );
 }
